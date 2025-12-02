@@ -524,13 +524,13 @@
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
-            a.download = 'obfuscated-code.js';
+            a.download = 'obfuscated-code-Sydd.js';
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             
-            addTerminalLine("> Obfuscated code downloaded as obfuscated-code.js");
+            addTerminalLine("> Obfuscated code downloaded as obfuscated-code-Sydd.js");
         }
         
         // Copy to clipboard
