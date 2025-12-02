@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obfuscator Pro By Syid</title>
+    <title>SecureCode Obfuscator Pro</title>
     <style>
         :root {
             --primary: #2563eb;
@@ -282,7 +282,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>Obfuscator Pro By Syid</h1>
+            <h1>SecureCode Obfuscator Pro</h1>
             <p class="subtitle">Protect your source code with military-grade obfuscation technology</p>
         </header>
         
@@ -380,6 +380,7 @@
     </div>
 
     <script>
+        // Handle file upload
         document.getElementById('fileUpload').addEventListener('change', function(e) {
             const file = e.target.files[0];
             if (!file) return;
@@ -387,13 +388,14 @@
             const reader = new FileReader();
             const progressBar = document.getElementById('uploadProgress');
             
-            Simulate progress for better UX
+            // Simulate progress for better UX
             let progress = 0;
             const progressInterval = setInterval(() => {
                 progress += 5;
                 progressBar.style.width = `${progress}%`;
                 if (progress >= 100) clearInterval(progressInterval);
             }, 50);
+            
             reader.onload = function(e) {
                 document.getElementById('codeInput').value = e.target.result;
                 progressBar.style.width = '100%';
@@ -406,34 +408,40 @@
             
             reader.readAsText(file);
         });
+        
+        // Format file size to human readable format
         function formatFileSize(bytes) {
             if (bytes < 1024) return bytes + ' bytes';
             else if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
             else return (bytes / 1048576).toFixed(1) + ' MB';
         }
+        
+        // Advanced obfuscation function
         function obfuscateCode() {
             const input = document.getElementById('codeInput').value;
             if (!input.trim()) {
                 addTerminalLine("> Error: No input detected");
                 return;
             }
+            
             addTerminalLine("> Obfuscation process initiated");
             addTerminalLine("> Analyzing code structure...");
             
-            Show processing animation
+            // Show processing animation
             const outputElement = document.getElementById('output');
             outputElement.textContent = "Obfuscating your code...";
             outputElement.classList.add('pulse');
-             Use setTimeout to allow UI to update before intensive processing
+            
+            // Use setTimeout to allow UI to update before intensive processing
             setTimeout(() => {
                 try {
-                    Multiple layers of obfuscation
+                    // Multiple layers of obfuscation
                     let obfuscated = applyBase64Encoding(input);
                     obfuscated = applyCharCodeConversion(obfuscated);
                     obfuscated = applyStringReversal(obfuscated);
                     obfuscated = applyCustomCipher(obfuscated);
                     
-                    Final output with executor wrapper
+                    // Final output with executor wrapper
                     const randomString = generateRandomHex(6);
                     const finalOutput = `(function(){ 
                         const _0x${randomString} = ['${obfuscated}'];
@@ -443,10 +451,13 @@
                             return String.fromCharCode(c.charCodeAt(0) + 3);
                         }).join('')).split('').reverse().join(''));
                     })();`;
+                    
                     outputElement.textContent = finalOutput;
                     outputElement.classList.remove('pulse');
-                    Enable download button
-                    document.getElementById('downloadBtn').disabled = false;   
+                    
+                    // Enable download button
+                    document.getElementById('downloadBtn').disabled = false;
+                    
                     addTerminalLine("> Obfuscation complete - Code secured");
                     addTerminalLine("> Output size: " + formatFileSize(finalOutput.length));
                 } catch (error) {
@@ -456,11 +467,15 @@
                 }
             }, 1000);
         }
+        
+        // Apply Base64 encoding
         function applyBase64Encoding(str) {
             return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
                 return String.fromCharCode('0x' + p1);
             }));
         }
+        
+        // Apply character code conversion
         function applyCharCodeConversion(str) {
             let result = '';
             for (let i = 0; i < str.length; i++) {
@@ -468,10 +483,13 @@
             }
             return result;
         }
-        Apply string reversal
+        
+        // Apply string reversal
         function applyStringReversal(str) {
             return str.split('').reverse().join('');
         }
+        
+        // Apply custom cipher
         function applyCustomCipher(str) {
             const chars = str.split('');
             for (let i = 0; i < chars.length; i++) {
@@ -483,6 +501,8 @@
             }
             return chars.join('');
         }
+        
+        // Generate random hex string
         function generateRandomHex(length) {
             let result = '';
             const characters = 'abcdef0123456789';
@@ -491,12 +511,15 @@
             }
             return result;
         }
+        
+        // Download the obfuscated code
         function downloadCode() {
             const code = document.getElementById('output').textContent;
             if (!code.trim() || code === "Obfuscated code will appear here...") {
                 addTerminalLine("> Error: No obfuscated code to download");
                 return;
             }
+            
             const blob = new Blob([code], { type: 'text/javascript' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
@@ -506,8 +529,11 @@
             a.click();
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
+            
             addTerminalLine("> Obfuscated code downloaded as obfuscated-code.js");
         }
+        
+        // Copy to clipboard
         function copyToClipboard() {
             const code = document.getElementById('output').textContent;
             if (!code.trim() || code === "Obfuscated code will appear here...") {
@@ -521,6 +547,8 @@
                 addTerminalLine("> Failed to copy: " + err);
             });
         }
+        
+        // Clear all inputs
         function clearCode() {
             document.getElementById('codeInput').value = '';
             document.getElementById('output').textContent = 'Obfuscated code will appear here...';
@@ -528,6 +556,8 @@
             document.getElementById('fileUpload').value = '';
             addTerminalLine("> Input cleared - Ready for new code");
         }
+        
+        // Add line to terminal
         function addTerminalLine(text) {
             const terminal = document.querySelector('.terminal');
             const line = document.createElement('div');
@@ -536,16 +566,17 @@
             terminal.appendChild(line);
             terminal.scrollTop = terminal.scrollHeight;
             
-             Keep terminal at a reasonable size
+            // Keep terminal at a reasonable size
             if (terminal.children.length > 50) {
                 terminal.removeChild(terminal.children[0]);
             }
         }
-         Initialize
+        
+        // Initialize
         window.onload = function() {
             addTerminalLine("> SecureCode Obfuscator Pro initialized");
             addTerminalLine("> Ready to process your code");
         };
     </script>
 </body>
-</html>
+    </html>
